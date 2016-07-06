@@ -17,4 +17,8 @@ class Book < ActiveRecord::Base
   validates :pages, presence: true,
                           numericality: { only_integer: true, greater_than_or_equal_to: 1 }
 
+ def self.book_list(page)
+  @book = Book.paginate(:page => page, :per_page => 12)
+ end
+
 end

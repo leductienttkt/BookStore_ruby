@@ -1,11 +1,17 @@
 <p id="notice"><%= notice %></p>
 <div class="single-product-area">
   <div class="container">
-      <div class="row" style="margin-bottom: 50px">
+      <div class="row">
         <% @books.each do |book| %>
           <%= render partial: "signle_book", locals: { book: book } if !book.nil? %>
         <% end %>
       </div>
+      <div class="page_info">
+        <%= page_entries_info @posts %>
+      </div>
+      <%= will_paginate @posts, :style => 'color:blue' %>
   </div>
 </div>
+
 <%= link_to 'New Book', new_book_path %>
+
