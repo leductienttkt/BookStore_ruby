@@ -1,21 +1,33 @@
 require 'rails_helper'
 
-RSpec.describe BooksController, type: :controller do
-
-  #*******************************************************************************
+describe BooksController do
+#*******************************************************************************
+  let(:book) { create(:book) }
+#*****************************************************************************
   describe "GET #index" do
-    subject { get :index }
+
+    before { get :index }
+
+    it "populates an array of books" do
+      expect(assigns(:books)).to eq([book])
+    end
 
     it "renders the index template" do
       expect(subject).to render_template(:index)
     end
   end
+
 #*******************************************************************************
   describe "GET #show" do
-    book = FactoryGirl.create(:book)
-    subject { get :show, :id => book.to_param }
+
+    it "assigns the requested book to @book" do
+      book = FactoryGirl.create(:book)
+      get :show, id: book
+      expect(assigns(:book)).to eq(book)
+    end
 
     it "render the show template" do
+      get :show, id: FactoryGirl.create(:book)
       expect(subject).to render_template(:show)
     end
   end
@@ -29,94 +41,101 @@ RSpec.describe BooksController, type: :controller do
   end
 #*******************************************************************************
   describe "GET #edit" do
-  book = FactoryGirl.create(:book)
     subject { get :edit, :id => book.id.to_param }
 
     it "render the edit template" do
       expect(subject).to render_template(:edit)
     end
   end
+
 #*******************************************************************************
-  describe "POST #create" do
-    let(:book) { FactoryGirl.build(:book) }
-    let(:params) do
-        {
-            book: {
-                category_id: book.category_id,
-                title: book.title,
-                author: book.author,
-                publish_id: book.publish_id,
-                cost: book.cost,
-                sale: book.sale,
-                photo: book.photo,
-                content: book.content,
-                weight: book.weight,
-                size: book.size,
-                pages: book.pages,
-                date: book.date
-            }
-        }
-    end
+  describe 'POST #create' do
+    context 'with valid attributes' do
+      it 'creates the book' do
+        post :create, book: attributes_for(:book)
+        expect(Book.count).to eq(1)
+      end
 
-    before do
-        post :create, params
-    end
-
-    it "redirects_to :action => :show" do
-      expect(response).to redirect_to :action => :show,
+      it 'redirects to the "show" action for the new book' do
+        post :create, book: attributes_for(:book)
+        expect(response).to redirect_to :action =>:show,
                                      :id => assigns(:book).id
+      end
     end
 
-  end
-#*******************************************************************************
-  let(:book) { FactoryGirl.create(:book) }
-#*******************************************************************************
-  describe "PUT update" do
-    let(:expected_book) {  assigns(:book) }
-    let(:params) do
-        {
-            id: book.id,
-            book: {
-                category_id: book.category_id,
-                title: book.title,
-                author: book.author,
-                publish_id: book.publish_id,
-                cost: book.cost,
-                sale: book.sale,
-                photo: book.photo,
-                content: book.content,
-                weight: book.weight,
-                size: book.size,
-                pages: book.pages,
-                date: book.date
-            }
-        }
-    end
+    context 'with invalid attributes' do
+      it 'does not create the book' do
+        post :create, book: attributes_for(:book, category_id:nil)
+        expect(Book.count).to eq(0)
+      end
 
-    before do
-        put :update, params
-    end
-
-    it 'redirects to book detail page' do
-      expect(response).to redirect_to(book_path(book))
-    end
-
-    it 'assigns correct variables' do
-      expect(expected_book).to eq book
-    end
-end
-#*******************************************************************************
-  describe "DELETE #destroy" do
-    let(:params) do
-      {
-        :id => book.to_param
-      }
-    end
-    before do
-      delete :destroy, params
-    end
-    it "redirects_to :action => :index" do
-      expect(subject).to redirect_to :action => :index
+      it 're-render the "new" view' do
+        post :create, book: attributes_for(:book, category_id:nil)
+        expect(response).to render_template :new
+      end
     end
   end
+
+#*******************************************************************************
+  describe 'DELETE destroy' do
+    before :each do
+      @book = FactoryGirl.create(:book)
+    end
+
+    it "deletes the book" do
+      expect{
+        delete :destroy, id: @book
+     }.to change(Book, :count).by(-1)
+    end
+
+    it "redirects to books#index" do
+      delete :destroy, id: @book
+      expect(response).to redirect_to books_url
+    end
+  end
+#*******************************************************************************
+
+  describe 'PUT #update' do
+    before :each do
+      @book = FactoryGirl.create(:book, title: "Co nhung thu ban khong the giai thich", category_id: 12)
+    end
+
+    context 'valid attributes' do
+      it 'located the requested @book' do
+        put :update, id: @book, book: attributes_for(:book)
+        expect(assigns(:book)).to eq(@book)
+      end
+
+      it "change @book's attributes" do
+        put :update, id: @book, book: attributes_for(:book, title: "Cai gi vay")
+        @book.reload
+        expect(@book.title).to eq("Cai gi vay")
+      end
+
+      it "redirects to the updated book" do
+        put :update, id: @book, book: attributes_for(:book)
+        expect(response).to redirect_to @book
+      end
+     end
+
+    context 'invalid attributes' do
+      it 'located the requested @book' do
+        put :update, id: @book, book: attributes_for(:invalid_book)
+        expect(assigns(:book)).to eq(@book)
+      end
+
+      it "does not change @book's attributes" do
+        put :update, id: @book, book: attributes_for(:book, title: "Cai gi vay ", category_id: nil)
+        @book.reload
+        expect(@book.title).not_to eq("Cai gi vay")
+        expect(@book.category_id).to eq(12)
+      end
+
+      it 're-renders the edit method' do
+        put :update, id: @book, book: attributes_for(:invalid_book)
+        expect(response).to render_template :edit
+      end
+    end
+  end
 end
+
