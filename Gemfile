@@ -56,4 +56,3 @@ group :development do
   #font awesome - using icon: user - card - checkout  . . .
   gem "font-awesome-rails"
 end
-

@@ -1,35 +1,35 @@
-  <div class="col-md-3 col-ms-6" >
-    <div class="single-product" >
-      <div class="product-f-image">
-        <%= image_tag book.photo %>
-        <div class="product-hover">
-          <a href="#" class="add-to-cart-link">
-            <i class="fa fa-shopping-cart"></i> Add to cart
-          </a>
-          <a href=<%= book_path(book) %> class="view-details-link">
-            <i class="fa fa-link"></i> See details
-          </a>
-        </div>
+<div class="col-md-3 col-ms-6" >
+  <div class="single-product" >
+    <div class="product-f-image">
+      <%= image_tag book.photo %>
+      <div class="product-hover">
+        <a href="#" class="add-to-cart-link">
+          <i class="fa fa-shopping-cart"></i> Add to cart
+        </a>
+        <a href=<%= book_path(book) %> class="view-details-link">
+          <i class="fa fa-link"></i> See details
+        </a>
       </div>
-
-      <div  data-toggle="tooltip" data-placement="top" title = "<%= book.title %>">
-        <h2>
-          <% if book.title.size > 21 %>
-            <a href=<%= book_path(book) %>> <%= book.title[0..20]  %> ...</a>
-          <% else %>
-            <a href=<%= book_path(book) %>> <%= book.title %></a>
-          <% end %>
-        </h2>
-      </div>
-
-      <div class="product-carousel-price">
-        <ins>$<%= book.cost - (book.cost*book.sale) %></ins> <del>$<%= book.cost %></del>
-      </div>
-
     </div>
+
+    <div  data-toggle="tooltip" data-placement="top" title = "<%= book.title %>">
+      <h2>
+        <% if book.title.size > 21 %>
+        <a href=<%= book_path(book) %>> <%= book.title[0..20]  %> ...</a>
+        <% else %>
+        <a href=<%= book_path(book) %>> <%= book.title %></a>
+        <% end %>
+      </h2>
+    </div>
+
+    <div class="product-carousel-price">
+      <ins>$<%= book.cost - (book.cost*book.sale) %></ins> <del>$<%= book.cost %></del>
+    </div>
+
   </div>
-  <script type="text/javascript">
-    $(document).ready(function(){
-      $('[data-toggle="tooltip"]').tooltip();
-    });
-  </script>
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+  });
+</script>
