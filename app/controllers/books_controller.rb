@@ -1,5 +1,7 @@
 class BooksController < ApplicationController
   before_action :set_book, only: [:show, :edit, :update, :destroy]
+  #include CurrentCart
+  #before_action :set_cart
 
   # GET /books
   # GET /books.json
@@ -72,4 +74,4 @@ class BooksController < ApplicationController
     def book_params
       params.require(:book).permit(:category_id, :title, :author, :publish_id, :cost, :sale, :photo, :content, :weight, :size, :pages, :date)
     end
-end
+  end

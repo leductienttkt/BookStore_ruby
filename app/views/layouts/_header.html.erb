@@ -33,7 +33,7 @@
 
       <div class="col-sm-6">
         <div class="shopping-item">
-          <a href="#">Cart - <span class="cart-amunt">$800</span> <i class="fa fa-shopping-cart"></i> <span class="product-count">5</span></a>
+          <a href="/carts/<%= session[:cart_id] %>">Cart - <span id="price_span" class="cart-amunt"><%= number_to_currency(@cart.total_price) %></span> <i class="fa fa-shopping-cart"></i> <span id="quantity_span" class="product-count"><%= @cart.total_quantity %></span></a>
         </div>
       </div>
     </div>
