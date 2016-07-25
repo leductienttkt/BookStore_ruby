@@ -12,7 +12,7 @@
 //
 //= require jquery
 //= require jquery.elevatezoom
-//= require bootstrap
 //= require jquery_ujs
+//= require bootstrap
 //= require turbolinks
 //= require_tree .

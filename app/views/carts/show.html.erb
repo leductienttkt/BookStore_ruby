@@ -1,4 +1,12 @@
 <% if notice %>
-  <p id="notice"><%= notice %></p>
+<p id="notice"><%= notice %></p>
 <% end %>
+<div class="row">
+
+</div>
 <%= render @cart %>
+<script>
+  $(document).ready(function(){
+    $("#sticker").stick_in_parent();
+  });
+</script>
