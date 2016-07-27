@@ -16,7 +16,8 @@
   <td class="col-sm-1 col-md-1 text-center"><strong><%= number_to_currency(book.cost) %></strong></td>
   <td class="col-sm-1 col-md-1 text-center"><strong><%= number_to_currency(line_item.total_price) %></strong></td>
   <td class="col-sm-1 col-md-1">
-    <button type="button" class="btn btn-danger">
+    <a class="btn btn-danger" data-confirm="Are you sure?" rel="nofollow" data-method="delete" href="/line_items/<%= line_item.id %>">
       <span class="glyphicon glyphicon-remove"></span> Remove
-    </button></td>
+    </a></td>
   </tr>
+
