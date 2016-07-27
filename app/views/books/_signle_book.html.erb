@@ -3,7 +3,7 @@
     <div class="product-f-image">
       <%= image_tag book.photo %>
       <div class="product-hover">
-        <a href="#" class="add-to-cart-link">
+        <a href="/cart/<%= book.id %>" class="add-to-cart-link">
           <i class="fa fa-shopping-cart"></i> Add to cart
         </a>
         <a href=<%= book_path(book) %> class="view-details-link">

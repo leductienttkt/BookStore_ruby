@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
 
 
+  get '/cart' => "cart#index"
+  get '/cart/clear' => "cart#clearCart"
+  get '/cart/:id' => "cart#add"
+
   #devise_for :users
   resources :books do
     resources :comments
