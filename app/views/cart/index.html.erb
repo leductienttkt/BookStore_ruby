@@ -19,7 +19,7 @@
             <td class="col-sm-8 col-md-6">
               <div class="media">
                 <a class="thumbnail pull-left" href="#"> <img class="media-object" src="<%=
-                  book.photo %>" style="width: 72px; height: 72px;"> </a>
+                  book.photo %>" style="width: 72px; height: 72px;"></a>
                   <div class="media-body">
                     <h4 class="media-heading"><a href="/books/<%= book.id %>"><%= book.title %></a></h4>
                     <h5 class="media-heading"> by <a href="#"><%= book.author %></a></h5>
@@ -34,7 +34,7 @@
 
               <td class="col-sm-1 col-md-1 text-center"><strong><%= item_total_price(book.cost, quantity) %></strong></td>
               <td class="col-sm-1 col-md-1">
-                <a class="btn btn-danger" data-confirm="Are you sure?" rel="nofollow" data-method="delete" href="#">
+                <a class="btn btn-danger" data-confirm="Are you sure?" rel="nofollow" data-method="delete" href="/item/<%= book.id %>">
                   <span class="glyphicon glyphicon-remove"></span> Remove
                 </a></td>
               </tr>
@@ -70,8 +70,8 @@
       </div>
     </div>
 
-<script>
-  $(document).ready(function(){
-    $("#sticker").stick_in_parent();
-  });
-</script>
+    <script>
+      $(document).ready(function(){
+        $("#sticker").stick_in_parent();
+      });
+    </script>

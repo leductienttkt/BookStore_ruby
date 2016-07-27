@@ -22,14 +22,22 @@ class CartController < ApplicationController
     redirect_to :action => :index
   end
 
+  def removeItem
+    id = params[:id]
+    cart = session[:cart]
+    if cart[id] then
+      cart.delete(id)
+    end
+    redirect_to session[:previous_url]
+  end
   # GET /carts
   # GET /carts.json
   def index
-  # if there is a cart, pass it to the page for display else pass an empty value
+    # if there is a cart, pass it to the page for display else pass an empty value
     if session[:cart] then
       @cart = session[:cart]
     else
       @cart = {}
     end
-end
+  end
 end
