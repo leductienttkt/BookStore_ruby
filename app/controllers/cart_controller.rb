@@ -36,6 +36,11 @@ class CartController < ApplicationController
     # if there is a cart, pass it to the page for display else pass an empty value
     if session[:cart] then
       @cart = session[:cart]
+      @books = {}
+      @cart.each do | id, quantity |
+        item = Book.find_by_id(id)
+        @books.store(item, quantity)
+      end
     else
       @cart = {}
     end
