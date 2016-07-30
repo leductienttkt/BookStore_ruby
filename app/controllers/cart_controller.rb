@@ -36,13 +36,17 @@ class CartController < ApplicationController
       session[:total_price] = session[:total_price] + Book.find_by_id(id).cost * (number - cart[id])
     end
     cart[id] = number
-    redirect_to :action => :index
+    respond_to do |format|
+      format.js
+    end
   end # end editQuantity method
 
   # clear All item in cart
   def clearCart
     session[:cart] = nil
-    redirect_to :action => :index
+    respond_to do |format|
+      format.js
+    end
   end
 
   # remove one item in cart
