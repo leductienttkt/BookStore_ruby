@@ -65,7 +65,6 @@ class CartController < ApplicationController
   # GET /carts
   # GET /carts.json
   def index
-    binding.pry
     # if there is a cart, pass it to the page for display else pass an empty value
     if session[:cart] then
       @cart = session[:cart]
