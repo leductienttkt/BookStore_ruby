@@ -3,9 +3,7 @@
     <div class="product-f-image">
       <%= image_tag book.photo %>
       <div class="product-hover">
-        <a href="#" class="add-to-cart-link">
-          <i class="fa fa-shopping-cart"></i> Add to cart
-        </a>
+        <%= link_to "Add to cart", root_path(), method: :post, remote: :true %>
         <a href=<%= book_path(book) %> class="view-details-link">
           <i class="fa fa-link"></i> See details
         </a>
