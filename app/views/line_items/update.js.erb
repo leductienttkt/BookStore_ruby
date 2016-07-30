@@ -1,0 +1,3 @@
+$("#line_item_<%= @line_item.id %>").find(".total-price").find(".price-shopping").text("$<%= price_line_item(@line_item)%>");
+// $("#line_item_<%= @line_item.id %>").replaceWith('<%= j render(:partial => @line_item) %>');
+

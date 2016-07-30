@@ -1,0 +1,81 @@
+<div class="container have-height">
+  <div class="row">
+    <!-- List Item left -->
+    <div class="col-lg-8 col-md-12 cart-col-1">
+      <!-- title -->
+      <div class="row title visible-md-block visible-lg-block">
+        <div class="col-lg-8 col-md-8">
+          <h5>Books in your shop
+            <span class="badge"><%= cart_count %></span>
+          </h5>
+        </div>
+
+        <div class="col-lg-1 col-md-1">
+          <h6>Price</h6>
+        </div>
+
+        <div class="col-lg-1 col-md-1">
+          <h6>Count</h6>
+        </div>
+
+        <div class="col-lg-1 col-md-1">
+          <h6>Sale</h6>
+        </div>
+
+        <div class="col-lg-1 col-md-1 end">
+          <h6>Total Price</h6>
+        </div>
+      </div>
+      <!-- form -->
+      <form id="shopping-cart">
+        <%= render partial: @cart.line_items.includes(:book) %>
+      </form>
+    </div>
+    <!-- checkout right -->
+    <div class="col-lg-4 col-md-12 cart-col-2">
+      <div id="right-affix" class="affix-top visible-lg-block">
+        <div id="sticker"  class="panel panel-default fee panel-body">
+          <p class="total">
+            Total
+            <span>2.060.000 $</span>
+          </p>
+
+          <p class="total2">
+            Total
+            <span>2.060.000 $</span>
+          </p>
+
+          <p class="text-right">
+            <i>(include VAT)</i>
+          </p>
+
+          <button type="button" class="btn btn-large btn-block btn-default btn-checkout" onclick="location.href='/checkout/shipping';return false;">
+            ChecKout
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#sticker").sticky({topSpacing:70});
+    $(".btn-refresh").click(function(event){
+      event.preventDefault();
+      // var item_id = $(this).attr('item-id');
+      var book_id = $(this).attr('bookid');
+      var quantity = $(this).parent().parent().parent().find('.wrapper-quanity').find('.quantity').val();
+      $.ajax({
+        url: this.href,
+        type: "PUT",
+        data: { 
+          line_item: {
+            quantity: quantity,
+            book_id: book_id
+          }
+        }
+      });
+    });
+
+  });
+</script>

@@ -1,0 +1,41 @@
+<div id="line_item_<%= line_item.id%>" class="row shopping-cart-item">
+  <div class="col-lg-3 col-md-2 col-xs-3">
+    <p class="image">
+      <span class="sale"><%= (line_item.book.sale*100).round(2) %>%</span>
+      <img src="https://robohash.org/aperiamnecessitatibusincidunt.png?size=300x300&set=set1" data-zoom-image=""/>
+    </p>
+  </div>
+
+  <div class="col-lg-5 col-md-6 c2 col-xs-9">
+    <p class="name">
+      <a href="#"><%= line_item.book.title %></a>
+    </p>
+    <div class="action">
+      <%= link_to line_item_path(line_item), class: :"btn btn-info btn-sm btn-refresh",bookid: line_item.book_id do %>
+        <i class="fa fa-refresh"></i>
+      <% end %>
+
+      <%= link_to line_item_path(line_item), class: :"btn btn-danger btn-sm", method: :delete, remote: :true do %>
+        <i class="fa fa-trash-o"></i>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="col-lg-1 col-md-1 visible-md-block visible-lg-block">
+    <ins class="price-shopping">$<%= price(line_item.book) %></ins>
+    <br>
+    <del class="price-shopping2">$<%= line_item.book.cost %></del>
+  </div>
+
+  <div class="col-lg-1 col-md-1 visible-md-block visible-lg-block wrapper-quanity">
+    <input type="number"  min="1" class="form-control text-center quantity" value="<%= line_item.quantity %>">
+  </div>
+
+  <div class="col-lg-1 col-md-1 visible-md-block visible-lg-block">
+    <p>$<%= sale(line_item.book) %></p>
+  </div>
+
+  <div class="col-lg-1 col-md-1 visible-md-block visible-lg-block total-price">
+    <ins class="price-shopping">$<%= price_line_item(line_item) %></ins>
+  </div>
+</div>
