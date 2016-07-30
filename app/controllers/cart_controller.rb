@@ -1,35 +1,56 @@
 class CartController < ApplicationController
+
+  # add item if user click add to cart
   def add
     id = params[:id]
-      # if the cart has already been created, use the existing cart else create a new car
+    number = params[:number].to_i
+    book = Book.find_by_id(id)
+      # if the cart has already been created, use the existing cart else create a new cart
       if session[:cart] then
         cart = session[:cart]
+      # else set new cart is a hash and session total_price have value = 0
       else
         session[:cart] = {}
         cart = session[:cart]
+        session[:total_price] = 0
       end
       # if the product has already been added to the cart, increment the value else set th value to 1
       if cart[id] then
-        cart[id] = cart[id] + 1
+        cart[id] = cart[id] + number
       else
-        cart[id] = 1
+        cart[id] = number
       end
+      # add value to total_price
+      session[:total_price] = session[:total_price] + book.cost * number
       redirect_to :action => :index
   end # end add method
 
+  # edit quantity of item if user edit quantity from page cart
+  def editQuantity
+    id = params[:id]
+    number = params[:number].to_i
+    cart[id] = number
+    session[:total_price] = session[:total_price] + Book.find_by_id(id).cost * number
+    redirect_to :action => :index
+  end # end editQuantity method
+
+  # clear All item in cart
   def clearCart
     session[:cart] = nil
     redirect_to :action => :index
   end
 
+  # remove one item in cart
   def removeItem
     id = params[:id]
     cart = session[:cart]
     if cart[id] then
+      session[:total_price] = session[:total_price] - Book.find_by_id(id).cost * cart[id]
       cart.delete(id)
     end
     redirect_to session[:previous_url]
   end
+
   # GET /carts
   # GET /carts.json
   def index

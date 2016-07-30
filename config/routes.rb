@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   get '/cart' => "cart#index"
   get '/cart/clear' => "cart#clearCart"
   get '/cart/:id' => "cart#add"
+  get '/cart/:id/add/:number' => "cart#add", :as => :add_item
   delete '/item/:id' => "cart#removeItem"
+  post '/cart/edit/:id' => "cart#editQuantity"
   #devise_for :users
   resources :books do
     resources :comments
