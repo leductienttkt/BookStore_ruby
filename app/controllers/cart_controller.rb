@@ -9,11 +9,11 @@ class CartController < ApplicationController
       if session[:cart] then
         cart = session[:cart]
       # else set new cart is a hash and session total_price have value = 0
-      else
-        session[:cart] = {}
-        cart = session[:cart]
-        session[:total_price] = 0
-      end
+    else
+      session[:cart] = {}
+      cart = session[:cart]
+      session[:total_price] = 0
+    end
       # if the product has already been added to the cart, increment the value else set th value to 1
       if cart[id] then
         cart[id] = cart[id] + number
@@ -29,8 +29,13 @@ class CartController < ApplicationController
   def editQuantity
     id = params[:id]
     number = params[:number].to_i
+    cart = session[:cart]
+    if cart[id] > number
+      session[:total_price] = session[:total_price] - Book.find_by_id(id).cost * (cart[id] - number)
+    else
+      session[:total_price] = session[:total_price] + Book.find_by_id(id).cost * (number - cart[id])
+    end
     cart[id] = number
-    session[:total_price] = session[:total_price] + Book.find_by_id(id).cost * number
     redirect_to :action => :index
   end # end editQuantity method
 

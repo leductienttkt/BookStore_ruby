@@ -74,21 +74,14 @@
 
         event.preventDefault();
         var href = $(this).attr('href');
-        // $.post(url,
-        // {
-        //   number: $(this).parent().find(".quantity").val()
-        // },
-        // function(data,status){
-        //   alert("Data: " + data + "\nStatus: " + status);
-        // });
         var number = $(this).parent().parent().find(".quantity").val();
         $.ajax({
          url: href,
          type: "POST",
-         data : {number: number},
+         data : { number: number },
          success :  function(data){
                      // Your Code here
-                     alert("Data: " + data + "\nStatus: " + status);
+                     //alert("Data: " + data + "\nStatus: " + status);
                    }
                  })
       });
