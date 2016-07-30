@@ -3,6 +3,8 @@ class Book < ActiveRecord::Base
   belongs_to :category
   belongs_to :publish
   has_many :comments
+  has_many :line_items
+  before_destroy :ensure_not_referenced_by_any_line_item
   validates :title, presence: true,
                     length: { maximum: 500 }
   validates :cost, presence: true,
@@ -24,5 +26,14 @@ class Book < ActiveRecord::Base
 
   def self.book_list(page)
     @book = Book.paginate(page: page, per_page: PER_PAGE)
+  end
+
+  private def ensure_not_referenced_by_any_line_item
+    if line_items.empty?
+      return true
+    else
+      errors.add(:base, 'Line Items present')
+      return false
+    end
   end
 end

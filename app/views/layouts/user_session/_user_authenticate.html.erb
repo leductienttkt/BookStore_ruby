@@ -35,11 +35,11 @@
 <!-- Message after authenticate -->
 
 <% if flash[:notice] %>
-<%= render 'layouts/modal_message/notice_message' %>
+  <%= render 'layouts/modal_message/notice_message' %>
 <% elsif devise_error_messages! != "" %>
-<%= render 'layouts/modal_message/error_message'%>
+  <%= render 'layouts/modal_message/error_message'%>
 <% elsif flash[:alert] %>
-<%= render 'layouts/modal_message/alert_message' %>
+  <%= render 'layouts/modal_message/alert_message' %>
 <% end %>
 
 <script>

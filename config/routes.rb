@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
 
 
+  resources :carts
+  resources :cards
+  resources :line_items
   #devise_for :users
   resources :books do
     resources :comments
