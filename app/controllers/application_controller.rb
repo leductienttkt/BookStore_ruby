@@ -15,4 +15,13 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
     session[:previous_url] || root_path
   end
+
+  def current_order
+    if !cookies[:order].nil?
+      cookies[:order]
+    else
+      cookies[:order] = {Expires: Time.now + 3600}
+    end
+  end
+
 end
