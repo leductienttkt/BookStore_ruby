@@ -44,25 +44,28 @@ class CartController < ApplicationController
   # clear All item in cart
   def clearCart
     session[:cart] = nil
-    respond_to do |format|
-      format.js
-    end
+    redirect_to :action => :index
   end
 
   # remove one item in cart
   def removeItem
     id = params[:id]
     cart = session[:cart]
+    @book = Book.find_by_id(id)
     if cart[id] then
-      session[:total_price] = session[:total_price] - Book.find_by_id(id).cost * cart[id]
+      session[:total_price] = session[:total_price] - @book.cost * cart[id]
       cart.delete(id)
     end
-    redirect_to session[:previous_url]
+    respond_to do |format|
+      format.js
+    end
+    #redirect_to session[:previous_url]
   end
 
   # GET /carts
   # GET /carts.json
   def index
+    binding.pry
     # if there is a cart, pass it to the page for display else pass an empty value
     if session[:cart] then
       @cart = session[:cart]
