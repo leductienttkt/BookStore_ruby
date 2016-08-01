@@ -5,8 +5,8 @@ class CartController < ApplicationController
     id = params[:id]
     number = params[:number].to_i
     book = Book.find_by_id(id)
-      # if the cart has already been created, use the existing cart else create a new cart
-      if session[:cart] then
+    # if the cart has already been created, use the existing cart else create a new cart
+    if session[:cart] then
         cart = session[:cart]
       # else set new cart is a hash and session total_price have value = 0
     else
@@ -28,14 +28,15 @@ class CartController < ApplicationController
   # edit quantity of item if user edit quantity from page cart
   def editQuantity
     id = params[:id]
-    number = params[:number].to_i
+    @number = params[:number].to_i
     cart = session[:cart]
-    if cart[id] > number
-      session[:total_price] = session[:total_price] - Book.find_by_id(id).cost * (cart[id] - number)
+    @book = Book.find_by_id(id)
+    if cart[id] > @number
+      session[:total_price] = session[:total_price] - @book.cost * (cart[id] - @number)
     else
-      session[:total_price] = session[:total_price] + Book.find_by_id(id).cost * (number - cart[id])
+      session[:total_price] = session[:total_price] + @book.cost * (@number - cart[id])
     end
-    cart[id] = number
+    cart[id] = @number
     respond_to do |format|
       format.js
     end

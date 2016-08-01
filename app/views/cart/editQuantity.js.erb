@@ -1,0 +1,14 @@
+// Find row contains item had edit
+var $rows = $("#tbl").find("#book_<%= @book.id %>");
+// Set value for column quantity
+$($rows.find(".quantity")).val("<%= @number %>");
+$($rows.find(".confirm-quantity")).val("<%= @number %>");
+// set value for column Total
+$($rows.find(".item-total-price")).html("<strong><%= number_to_currency(item_total_price(@book.cost, @number)) %></strong>");
+// set value for cart and total proce
+$(".product-count").text("<%= total_quantity %>");
+$(".total-price").html("<h4><strong><%= number_to_currency(session[:total_price].round(2)) %></strong></h4>");
+// Disable href update
+$(".refresh").attr("disabled", true);
+alert("Success");
+
