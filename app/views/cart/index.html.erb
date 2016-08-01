@@ -29,6 +29,7 @@
               <td class="col-sm-1 col-md-1" style="text-align: center">
                 <input type="number" class="form-control quantity" value="<%= quantity %>" min="1">
                 <input type="hidden" class="confirm-quantity" value="<%= quantity%>">
+                <a href="/cart/edit/<%= book.id %>" class="btn btn-primary btn-info form-control refresh" style="visibility:hidden"><span class="glyphicon glyphicon-repeat"></span> </a>
               </td>
               <td class="col-sm-1 col-md-1 text-center"><strong><%= number_to_currency(book.cost) %></strong></td>
 
@@ -38,9 +39,6 @@
                 <a class="btn btn-danger" data-confirm="Are you sure?" rel="nofollow" data-method="delete" href="/item/<%= book.id %>" data-remote="true">
                   <span class="glyphicon glyphicon-remove"></span>
                 </a>
-
-                <a href="/cart/edit/<%= book.id %>" class="btn btn-primary btn-info refresh" disabled="disabled"><span class="glyphicon glyphicon-repeat"></span> </a>
-
               </td>
 
             </tr>
@@ -63,10 +61,10 @@
         var quantity = $(this).val();
         var confirmQuantity = $(this).next().val();
         if(quantity == confirmQuantity){
-          $(this).parent().parent().find(".refresh").attr("disabled", true);
+          $(this).parent().parent().find(".refresh").css("visibility", "hidden");
         }
         else{
-          $(this).parent().parent().find(".refresh").removeAttr("disabled");
+          $(this).parent().parent().find(".refresh").css("visibility", "visible");
         }
       });
 
