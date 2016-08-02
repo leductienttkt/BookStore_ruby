@@ -6,14 +6,15 @@ class CartController < ApplicationController
     number = params[:number].to_i
     book = Book.find_by_id(id)
     # if the cart has already been created, use the existing cart else create a new cart
-    if session[:cart] then
-        cart = session[:cart]
-      # else set new cart is a hash and session total_price have value = 0
-    else
-      session[:cart] = {}
+    # if session[:cart] then
+    #     cart = session[:cart]
+    #   # else set new cart is a hash and session total_price have value = 0
+    # else
+    #   session[:cart] = {}
+    #   cart = session[:cart]
+    #   session[:total_price] = 0
+    # end
       cart = session[:cart]
-      session[:total_price] = 0
-    end
       # if the product has already been added to the cart, increment the value else set th value to 1
       if cart[id] then
         cart[id] = cart[id] + number
