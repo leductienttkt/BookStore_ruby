@@ -7,33 +7,33 @@ module CurrentCart extend ActiveSupport::Concern
       session[:total_price] = 0
     end
 
-    if current_user then
-      @cart = Cart.where(user_id: current_user.id)
-      if @cart.empty?
+    if user_signed_in?
+      @cart = Cart.find_by_user_id(current_user.id)
+      if @cart.blank?
         @cart = Cart.create(user_id: current_user.id)
-        binding.pry
       end
       temp1 = {}
-      unless @cart.empty? then
+      unless @cart.line_items.blank?
         @cart.line_items.each do |item|
-          temp1.store(item.book, item.quantity)
+          temp1.store(item.book_id, item.quantity)
         end
 
         temp2 = temp1.dup
 
         session[:cart].each do |item, quantity|
-          temp1.store(item, quantity)
+          temp1.store(item.to_i, quantity)
         end
 
         temp1.each do |k1, v1|
-          unless temp2.fetch(k1) then
-            LineItem.create(k1.id.to_i, @cart.id, v1)
+          binding.pry
+          unless temp2.has_key?(k1) then
+            binding.pry
+            LineItem.create(book_id: k1.to_i, cart_id: @cart.id, quantity: v1)
           end
         end
       else
         session[:cart].each do |k1, v1|
-          binding.pry
-          LineItem.create(k1.to_i, @cart.id, v1)
+          LineItem.create(book_id: k1.to_i, cart_id: @cart.id, quantity: v1)
         end
       end
     end
