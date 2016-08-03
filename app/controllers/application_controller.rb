@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   include CurrentCart
   before_action :set_cart
+  before_filter :set_current_user
   protect_from_forgery with: :exception
 
   after_filter :store_location
@@ -16,12 +17,8 @@ class ApplicationController < ActionController::Base
     session[:previous_url] || root_path
   end
 
-  def current_order
-    if !cookies[:order].nil?
-      cookies[:order]
-    else
-      cookies[:order] = {Expires: Time.now + 3600}
-    end
+  def set_current_user
+      User.current = current_user
   end
 
 end

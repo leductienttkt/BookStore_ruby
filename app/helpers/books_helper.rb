@@ -9,41 +9,55 @@ module BooksHelper
   - cart_count: computer the line_item in a current_cart
   - cart_price: computer the price of all line_item in current_cart
 =end
-  def price book
-    (book.cost - book.cost * book.sale).round(2) 
-  end
+def price book
+  (book.cost - book.cost * book.sale).round(2) 
+end
 
-  def sale book
-    (book.cost * book.sale).round(2)
-  end
+def sale book
+  (book.cost * book.sale).round(2)
+end
 
-  def price_line_item line_item
-    price(line_item.book) * line_item.quantity
-  end
+def price_line_item line_item
+  price(line_item.book) * line_item.quantity
+end
 
-  def cart_count
-    @count = 0
-    unless session[:cart_id].nil?
-      if @cart.nil?
-        @cart = Cart.find(session[:cart_id])
-      end
+def cart_count
+  if current_user.nil?
+    no_login(false)
+  else
+    logined(false)
+  end
+end
+
+def cart_price
+  if current_user.nil?
+    no_login(true)
+  else
+    logined(true)
+  end
+end
+
+def logined (is_price)
+  @result = 0
+  unless session[:cart_id].nil?
+    if @cart.nil?
+      @cart = Cart.find(session[:cart_id])
+    end
+    if is_price
       @cart.line_items.includes(:book).each{ |item|
-        @count += item.quantity
+        @result += item.quantity * price(item.book)
+      }
+    else
+      @cart.line_items.includes(:book).each{ |item|
+        @result += item.quantity
       }
     end
-    @count
   end
+  @result
+end
 
-  def cart_price
-    @price = 0
-    unless session[:cart_id].nil?
-      if @cart.nil?
-        @cart = Cart.find(session[:cart_id])
-      end
-      @cart.line_items.includes(:book).each{ |item|
-        @price += item.quantity * price(item.book)
-      }
-    end
-    @price
-  end
+def no_login is_price
+  @result = 0
+
+end
 end

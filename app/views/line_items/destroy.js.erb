@@ -1,1 +1,11 @@
+// remove div
 $("#line_item_<%= @line_item.id %>").remove();
+// update cart shopping item
+$(".product-count").text("<%= cart_count %>");
+// update price total in cart shopping item
+$("#Cart_price").text("<%= cart_price %>");
+// update price total
+$("#sticker").find(".total").find(".total-price").text("<%= cart_price %> $");
+$("#sticker").find(".total2").find(".total-price").text("<%= cart_price %> $");
+// update cart count in title of table
+$(".badge").text("<%= cart_count %>");

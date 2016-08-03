@@ -1,3 +1,12 @@
+// update price of line_item
 $("#line_item_<%= @line_item.id %>").find(".total-price").find(".price-shopping").text("$<%= price_line_item(@line_item)%>");
+// update cart shopping item
+$(".cart-shopping").find(".product-count").text("<%= cart_count %>");
+// update price total in cart shopping item
+$(".cart-shopping").find("#Cart_price").text("<%= cart_price %>");
+// update totalprice
+$("#sticker").find(".total").find(".total-price").text("<%= cart_price %> $");
+$("#sticker").find(".total2").find(".total-price").text("<%= cart_price %> $");
+// update cart count in title of table
+$(".cart-count").find(".badge").text("<%= cart_count %>");
 // $("#line_item_<%= @line_item.id %>").replaceWith('<%= j render(:partial => @line_item) %>');
-

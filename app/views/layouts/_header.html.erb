@@ -55,8 +55,16 @@
           <li><a href="#">Contact</a></li>
 
         </ul>
-        <div class="shopping-item">
-            <a href="<%= cart_path(session[:cart_id]) %>">Cart - <span id="Cart_price" class="cart-amunt">$<%= cart_price %></span> <i class="fa fa-shopping-cart"></i> <span id="Cart_quantity" class="product-count"><%= cart_count %></span></a>
+        <div class="shopping-item cart-shopping">
+            <% if current_user.nil? %>
+              <a href="<%= carts_path() %>">Cart -
+            <% else %>
+              <a href="<%= cart_path(session[:cart_id]) %>">Cart -
+            <% end %>  
+              <span id="Cart_price" class="cart-amunt">$<%= cart_price %></span> 
+              <i class="fa fa-shopping-cart"></i> 
+              <span id="Cart_quantity" class="product-count"><%= cart_count %></span>
+            </a>
           </div>
       </div>
     </div>

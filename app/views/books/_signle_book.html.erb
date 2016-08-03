@@ -13,9 +13,9 @@
     <div class="abc" data-toggle="tooltip" data-placement="top" title = "<%= book.title %>">
       <h2>
         <% if book.title.size > 21 %>
-        <a href=<%= book_path(book) %>> <%= book.title[0..20]  %> ...</a>
+          <a href=<%= book_path(book) %>> <%= book.title[0..20]  %> ...</a>
         <% else %>
-        <a href=<%= book_path(book) %>> <%= book.title %></a>
+          <a href=<%= book_path(book) %>> <%= book.title %></a>
         <% end %>
       </h2>
     </div>

@@ -26,7 +26,11 @@ class LineItemsController < ApplicationController
   # POST /line_items.json
   def create
     book = Book.find(params[:book_id])
-    @line_item = @cart.add_product params[:book_id]
+    if current_user.nil?
+      @cart = add_to_session params[:book_id]
+    else
+      @line_item = @cart.add_to_cart params[:book_id]
+    end
     respond_to do |format|
       if @line_item.save
         #format.html { redirect_to @line_item, notice: 'Line item was successfully created.' }
@@ -72,4 +76,14 @@ class LineItemsController < ApplicationController
     def line_item_params
       params.require(:line_item).permit(:book_id,:quantity)
     end
-end
+
+    def add_to_session book_id
+      current_item = session[:cart][":#{book_id}"]
+      if current_item
+        session[:cart][":#{book_id}"] = session[:cart][":#{book_id}"]+1
+      else
+        session[:cart][":#{book_id}"] = 1
+      end
+      session[:cart]
+    end
+  end

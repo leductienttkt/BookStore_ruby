@@ -1,25 +1,81 @@
-<p id="notice"><%= notice %></p>
+<div class="container have-height">
+  <div class="row">
+    <!-- List Item left -->
+    <div class="col-lg-8 col-md-12 cart-col-1">
+      <!-- title -->
+      <div class="row title visible-md-block visible-lg-block">
+        <div class="col-lg-8 col-md-8 cart-count">
+          <h5>Books in your shop
+            <span class="badge"><%= cart_count %></span>
+          </h5>
+        </div>
 
-<h1>Listing Carts</h1>
+        <div class="col-lg-1 col-md-1">
+          <h6>Price</h6>
+        </div>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+        <div class="col-lg-1 col-md-1">
+          <h6>Count</h6>
+        </div>
 
-  <tbody>
-    <% @carts.each do |cart| %>
-      <tr>
-        <td><%= link_to 'Show', cart %></td>
-        <td><%= link_to 'Edit', edit_cart_path(cart) %></td>
-        <td><%= link_to 'Destroy', cart, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+        <div class="col-lg-1 col-md-1">
+          <h6>Sale</h6>
+        </div>
 
-<br>
+        <div class="col-lg-1 col-md-1 end">
+          <h6>Total Price</h6>
+        </div>
+      </div>
+      <!-- form -->
+      <form id="shopping-cart">
+        
+      </form>
+    </div>
+    <!-- checkout right -->
+    <div class="col-lg-4 col-md-12 cart-col-2">
+      <div id="right-affix" class="affix-top visible-lg-block">
+        <div id="sticker"  class="panel panel-default fee panel-body">
+          <p class="total">
+            Total
+            <span class="total-price"> <%= cart_price %> $</span>
+          </p>
 
-<%= link_to 'New Cart', new_cart_path %>
+          <p class="total2">
+            Total
+            <span class="total-price"> <%= cart_price %> $</span>
+          </p>
+
+          <p class="text-right">
+            <i>(include VAT)</i>
+          </p>
+
+          <button type="button" class="btn btn-large btn-block btn-default btn-checkout" onclick="location.href='/checkout/shipping';return false;">
+            ChecKout
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#sticker").sticky({topSpacing:70});
+    $(".btn-refresh").click(function(event){
+      event.preventDefault();
+      // var item_id = $(this).attr('item-id');
+      var book_id = $(this).attr('bookid');
+      var quantity = $(this).parent().parent().parent().find('.wrapper-quanity').find('.quantity').val();
+      $.ajax({
+        url: this.href,
+        type: "PUT",
+        data: { 
+          line_item: {
+            quantity: quantity,
+            book_id: book_id
+          }
+        }
+      });
+    });
+
+  });
+</script>
