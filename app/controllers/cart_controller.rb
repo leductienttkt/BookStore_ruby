@@ -1,20 +1,11 @@
 class CartController < ApplicationController
-
+  before_action :get_cart, only: [:add,:editQuantity,:removeItem]
   # add item if user click add to cart
   def add
     id = params[:id]
     number = params[:number].to_i
     book = Book.find_by_id(id)
-    # if the cart has already been created, use the existing cart else create a new cart
-    # if session[:cart] then
-    #     cart = session[:cart]
-    #   # else set new cart is a hash and session total_price have value = 0
-    # else
-    #   session[:cart] = {}
-    #   cart = session[:cart]
-    #   session[:total_price] = 0
-    # end
-      cart = session[:cart]
+    cart = session[:cart]
       # if the product has already been added to the cart, increment the value else set th value to 1
       if cart[id] then
         cart[id] = cart[id] + number
@@ -23,6 +14,15 @@ class CartController < ApplicationController
       end
       # add value to total_price
       session[:total_price] = session[:total_price] + book.cost * number
+      # add or edit item in database
+      if @cart
+        @item = @cart.line_items.find_by(book_id: id.to_i)
+        if @item.blank?
+          LineItem.create(cart_id: @cart.id, book_id: id.to_i, quantity: cart[id])
+        else
+          @item.update(quantity: cart[id])
+        end
+      end
       redirect_to :action => :index
   end # end add method
 
@@ -38,6 +38,10 @@ class CartController < ApplicationController
       session[:total_price] = session[:total_price] + @book.cost * (@number - cart[id])
     end
     cart[id] = @number
+    if @cart
+      @cart.line_items.find_by(book_id: id.to_i).update(quantity: cart[id])
+    end
+
     respond_to do |format|
       format.js
     end
@@ -58,6 +62,9 @@ class CartController < ApplicationController
       session[:total_price] = session[:total_price] - @book.cost * cart[id]
       cart.delete(id)
     end
+    if @cart
+      @cart.line_items.find_by(book_id: id.to_i).delete
+    end
     respond_to do |format|
       format.js
     end
@@ -69,14 +76,20 @@ class CartController < ApplicationController
   def index
     # if there is a cart, pass it to the page for display else pass an empty value
     if session[:cart] then
-      @cart = session[:cart]
       @books = {}
-      @cart.each do | id, quantity |
+      session[:cart].each do | id, quantity |
         item = Book.find_by_id(id)
         @books.store(item, quantity)
       end
     else
-      @cart = {}
+      puts 'CC----------------CC'
+    end
+  end
+
+  private
+  def get_cart
+    if user_signed_in?
+      @cart = Cart.find_by_user_id(current_user.id)
     end
   end
 end

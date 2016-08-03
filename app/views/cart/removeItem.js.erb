@@ -1,1 +1,5 @@
 $('#book_<%= @book.id %>').remove();
+// set value for cart and total proce
+$(".cart-amunt").text("<%= number_to_currency(session[:total_price].round(2)) %>")
+$(".product-count").text("<%= total_quantity %>");
+$(".total-price").html("<h4><strong><%= number_to_currency(session[:total_price].round(2)) %></strong></h4>");
