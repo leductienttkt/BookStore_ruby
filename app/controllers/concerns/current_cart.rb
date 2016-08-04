@@ -9,7 +9,7 @@ module CurrentCart extend ActiveSupport::Concern
   end
 
   def set_cart
-    @cart = Cart.find_by_user_id(current_user.id)
+    @cart = Cart.find_by(user_id: current_user.id)
     if @cart.blank?
       @cart = Cart.create(user_id: current_user.id)
     end
