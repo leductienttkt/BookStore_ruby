@@ -11,15 +11,15 @@
     <div class="row">
       <div class="col-md-6">
         <h4> Login with <strong>Your Account  :</strong></h4>
-        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <%= form_for(@user, :url => user_session_path, validate: true) do |f| %>
         <div class="form-group">
           <label>Enter Email ID : </label>
-          <%= f.email_field :email, autofocus: true, class: "form-control" %>
+          <%= f.email_field :email, autofocus: true, class: "form-control", validate: true %>
         </div>
 
         <div class="form-group">
           <label>Enter Password :  </label>
-          <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+          <%= f.password_field :password, class: "form-control", validate: true %>
         </div>
 
         <% if devise_mapping.rememberable? -%>
@@ -50,23 +50,3 @@
     </div>
 
     <%= render "devise/shared/links" %>
-<script type="text/javascript">
-  $(document).ready(function () {
-    $("#new_user").validate({
-        rules: {
-            user_email: {
-                required: true,
-                minlength: 8
-            },
-            pass: "required"
-        },
-        messages: {
-            user_email: {
-                required: "Please provide your Login",
-                minlength: "Your Login must be at least 8 characters"
-            },
-            user_password: "Please provide your password"
-        }
-    });
-});
-</script>
