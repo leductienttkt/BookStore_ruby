@@ -29,7 +29,6 @@ module CurrentCart extend ActiveSupport::Concern
 
       temp1.each do |k1, v1|
         unless temp2.has_key?(k1) then
-          binding.pry
           LineItem.create(book_id: k1.to_i, cart_id: @cart.id, quantity: v1)
           session[:total_price] += Book.find_by_id(k1.to_i).cost * v1
         end

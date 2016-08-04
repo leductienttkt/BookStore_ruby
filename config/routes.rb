@@ -1,8 +1,5 @@
 Rails.application.routes.draw do
 
-
-  resources :line_items
-  resources :carts
   get '/cart' => "cart#index"
   get '/cart/clear' => "cart#clearCart"
   get '/cart/:id' => "cart#add"
@@ -26,6 +23,9 @@ Rails.application.routes.draw do
   end
 
   devise_for :users, :controllers => { passwords: 'passwords' }
+
+  # handing error no match route [GET]
+  get '*unmatched_route', :to => 'cart#invalid_cart'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

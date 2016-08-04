@@ -1,5 +1,6 @@
 class CartController < ApplicationController
   before_action :get_cart, only: [:add,:editQuantity,:removeItem]
+
   # add item if user click add to cart
   def add
     id = params[:id]
@@ -84,6 +85,11 @@ class CartController < ApplicationController
     else
       puts 'CC----------------CC'
     end
+  end
+
+  # if invalid cart happen, will return cart#index
+  def invalid_cart
+    redirect_to cart_path
   end
 
   private
