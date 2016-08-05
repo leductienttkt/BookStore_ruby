@@ -3,18 +3,19 @@
   <span id="login_fail" class="response_error" style="display: none;">Loggin failed, please try again.</span>
 
   <div class="clearfix"></div>
-  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name), validate: true, html: {id: 'sign_in'}) do |f| %>
   <div class="form-group">
     <div class="input-group">
       <div class="input-group-addon"><i class="fa fa-user"></i></div>
-      <%= f.email_field :email, autofocus: true, class: "form-control", placeholder: "Email" %>
+      <%= f.email_field :email, validate: true, autofocus: true, class: "form-control", placeholder: "Email" %>
     </div>
     <span class="help-block has-error" id="email-error"></span>
   </div>
   <div class="form-group">
     <div class="input-group">
       <div class="input-group-addon"><i class="fa fa-lock"></i></div>
-      <%= f.password_field :password, autocomplete: "off", class: "form-control", placeholder: "Password" %>
+      <%= f.password_field :password, validate: true, autofocus: true, class: "form-control", placeholder: "Password" %>
     </div>
     <span class="help-block has-error" id="password-error"></span>
   </div>
@@ -30,7 +31,7 @@
 
       <div class="col-xs-6 col-sm-6 col-md-6">
         <i class="fa fa-check"></i>
-        <a href="javascript:;" class="signup-tab"> Sign In </a>
+        <a href="javascript:;" class="signup-tab"> Sign Up </a>
       </div>
       <div class="col-md-12">
         <i class="fa fa-lock"></i>

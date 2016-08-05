@@ -11,9 +11,9 @@
           <div role="tabpanel" class="login-tab">
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
-              <li role="presentation" class="active"><a id="signin-taba" href="#home" aria-controls="home" role="tab" data-toggle="tab">Sign In</a></li>
-              <li role="presentation"><a id="signup-taba" href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Sign Up</a></li>
-              <li role="presentation"><a id="forgetpass-taba" href="#forget_password" aria-controls="forget_password" role="tab" data-toggle="tab">Forget Password</a></li>
+              <li role="presentation" class="active"><a id="signin-taba" class="signin-tab" href="#home" aria-controls="home" role="tab" data-toggle="tab">Sign In</a></li>
+              <li role="presentation"><a id="signup-taba" class="signup-tab" href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Sign Up</a></li>
+              <li role="presentation"><a id="forgetpass-taba" class="forgetpass-tab" href="#forget_password" aria-controls="forget_password" role="tab" data-toggle="tab">Forget Password</a></li>
             </ul>
 
             <!-- Tab panes -->
@@ -47,6 +47,7 @@
     $(document).on('click','.signup-tab',function(e){
       e.preventDefault();
       $('#signup-taba').tab('show');
+      $(document).find("form#sign_up").enableClientSideValidations();
     });
 
     $(document).on('click','.signin-tab',function(e){
@@ -57,11 +58,18 @@
     $(document).on('click','.forgetpass-tab',function(e){
       e.preventDefault();
       $('#forgetpass-taba').tab('show');
+      $(document).find("form#forgot_password").enableClientSideValidations();
+
     });
 
     $(window).load(function(){
       $('#myModal').modal('show');
     });
+
+    $(document).on('shown.bs.modal', '#login_form', function(){
+      console.log("test");
+      $(document).find("form#sign_in").enableClientSideValidations();
+    })
 
   });
 </script>
