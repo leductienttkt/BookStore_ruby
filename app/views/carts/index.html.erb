@@ -28,7 +28,10 @@
       </div>
       <!-- form -->
       <form id="shopping-cart">
-        
+        <% @cart.each do |id, quantity| %>
+          <% book = Book.find(id) %>
+          <%= render partial: 'line_item_2', locals: {book: book, quantity: quantity} %>
+        <% end %>
       </form>
     </div>
     <!-- checkout right -->

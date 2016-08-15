@@ -1,5 +1,5 @@
 // update price of line_item
-$("#line_item_<%= @line_item.id %>").find(".total-price").find(".price-shopping").text("$<%= price_line_item(@line_item)%>");
+$("#line_item_<%= @line_item.id %>").find(".total-price").find(".price-shopping").text("$<%= price_line_item(@line_item.book, @line_item.quantity)%>");
 // update cart shopping item
 $(".cart-shopping").find(".product-count").text("<%= cart_count %>");
 // update price total in cart shopping item

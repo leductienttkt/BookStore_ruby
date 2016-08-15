@@ -3,7 +3,9 @@ Rails.application.routes.draw do
 
   resources :carts
   resources :cards
-  resources :line_items
+  resources :line_items do
+
+  end
   #devise_for :users
   resources :books do
     resources :comments

@@ -1,10 +1,14 @@
 class CartsController < ApplicationController
-  before_action :set_cart, only: [:show, :edit, :update, :destroy]
+  before_action :set_cart, only: [:index, :show, :edit, :update, :destroy]
 
   # GET /carts
   # GET /carts.json
   def index
-    @cart = Cart.all
+    if current_user.nil?
+      @cart = session[:cart]
+    else
+      @cart = Cart.all
+    end
   end
 
   # GET /carts/1

@@ -1,4 +1,4 @@
-<div id="line_item_<%= line_item.id%>" class="row shopping-cart-item">
+<div id="line_item_<%= line_item.id %>" class="row shopping-cart-item">
   <div class="col-lg-3 col-md-2 col-xs-3">
     <p class="image">
       <span class="sale"><%= (line_item.book.sale*100).round(2) %>%</span>
@@ -36,6 +36,6 @@
   </div>
 
   <div class="col-lg-1 col-md-1 visible-md-block visible-lg-block total-price">
-    <ins class="price-shopping">$<%= price_line_item(line_item) %></ins>
+    <ins class="price-shopping">$<%= price_line_item(line_item.book, line_item.quantity) %></ins>
   </div>
 </div>
