@@ -19,7 +19,7 @@ class Book < ActiveRecord::Base
                           numericality: { only_integer: true, greater_than_or_equal_to: 1 }
   validates :pages, presence: true,
                     numericality: { only_integer: true, greater_than_or_equal_to: 1 }
-
+  mount_uploader  :photo, PhotoUploader
   PER_PAGE = 12
 
   def self.book_list(page)
