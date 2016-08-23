@@ -638,13 +638,13 @@
         labelErrorField = label.closest("." + errorFieldClass);
 
         // Code tu them vao
-        // var $group = inputErrorField.parent();
-        // var $feedback = $group.find('.form-control-feedback');
+        var $group = inputErrorField.parent();
+        var $feedback = $group.find('.form-control-feedback');
 
-        // $group.removeClass('has-error');
-        // $group.addClass('has-success');
-        // $feedback.removeClass('glyphicon-remove');
-        // $feedback.addClass('glyphicon-ok');
+        $group.removeClass('has-error');
+        $group.addClass('has-success');
+        $feedback.removeClass('glyphicon-remove');
+        $feedback.addClass('glyphicon-ok');
         // end
 
         if (inputErrorField[0]) {
