@@ -248,6 +248,9 @@
         'element:validate:pass.ClientSideValidations': function(eventData) {
           var element;
           element = $(this);
+          var group = element.parent();
+          group.addClass('has-success has-feedback');
+          group.find('.form-control-feedback').addClass('glyphicon-ok');
           return ClientSideValidations.callbacks.element.pass(element, function() {
             return form.ClientSideValidations.removeError(element);
           }, eventData);
@@ -517,6 +520,7 @@
           }
         }
       }
+
     },
     remote: {
       uniqueness: function(element, options) {
@@ -632,6 +636,17 @@
         inputErrorField = element.closest("." + (errorFieldClass.replace(/\ /g, ".")));
         label = form.find("label[for='" + (element.attr('id')) + "']:not(.message)");
         labelErrorField = label.closest("." + errorFieldClass);
+
+        // Code tu them vao
+        // var $group = inputErrorField.parent();
+        // var $feedback = $group.find('.form-control-feedback');
+
+        // $group.removeClass('has-error');
+        // $group.addClass('has-success');
+        // $feedback.removeClass('glyphicon-remove');
+        // $feedback.addClass('glyphicon-ok');
+        // end
+
         if (inputErrorField[0]) {
           inputErrorField.find("#" + (element.attr('id'))).detach();
           inputErrorField.replaceWith(element);

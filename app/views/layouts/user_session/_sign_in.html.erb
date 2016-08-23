@@ -6,18 +6,12 @@
 
   <%= form_for(resource, as: resource_name, url: session_path(resource_name), validate: true, html: {id: 'sign_in'}) do |f| %>
   <div class="form-group">
-    <div class="input-group">
-      <div class="input-group-addon"><i class="fa fa-user"></i></div>
-      <%= f.email_field :email, validate: true, autofocus: true, class: "form-control", placeholder: "Email" %>
-    </div>
-    <span class="help-block has-error" id="email-error"></span>
+    <%= f.email_field :email, validate: true, autofocus: true, class: "form-control", placeholder: "Email" %>
+    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
   </div>
   <div class="form-group">
-    <div class="input-group">
-      <div class="input-group-addon"><i class="fa fa-lock"></i></div>
-      <%= f.password_field :password, validate: true, autofocus: true, class: "form-control", placeholder: "Password" %>
-    </div>
-    <span class="help-block has-error" id="password-error"></span>
+    <%= f.password_field :password, validate: { confirmation: false, presence: true }, autofocus: true, class: "form-control", placeholder: "Password" %>
+    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
   </div>
   <%= f.submit "Log in", class: "btn btn-primary btn-block" %>
   <div class="clearfix"></div>

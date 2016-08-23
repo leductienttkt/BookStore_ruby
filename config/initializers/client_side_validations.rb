@@ -14,8 +14,22 @@ ClientSideValidations::Config.number_format_with_locale = true
 
 ActionView::Base.field_error_proc = Proc.new do |html_tag, instance|
   unless html_tag =~ /^<label/
-    %{<div class="field_with_errors">#{html_tag}<label for="#{instance.send(:tag_id)}" class="message">#{instance.error_message.first}</label></div>}.html_safe
-  else
-    %{<div class="field_with_errors">#{html_tag}</div>}.html_safe
+    %{<div class="field_with_errors">#{html_tag}
+
+    <label for="#{instance.send(:tag_id)}" class="message">#{instance.error_message.first}</label>
+    <script>
+      $(document).ready(function(){
+        var $group = $(".field_with_errors").parent();
+        var $feedback = $group.find(".form-control-feedback");
+
+        $feedback.addClass('glyphicon-remove');
+        $group.removeClass('has-success has-feedback')
+        $group.addClass('has-error has-feedback')
+      });
+    </script>
+    </div>
+    }.html_safe
+    else
+      %{<div class="field_with_errors">#{html_tag}</div>}.html_safe
+    end
   end
-end
