@@ -13,4 +13,13 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
     session[:previous_url] || root_path
   end
+
+  def categories
+    @categories = Category.all
+  end
+
+  def publishs
+    @publishs = Publish.all
+  end
+
 end

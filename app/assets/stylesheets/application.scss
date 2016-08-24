@@ -18,3 +18,14 @@
 @import "books";
 @import "main";
 @import "users";
+
+div.field_with_errors .message {
+  border-bottom-right-radius: 5px 5px;
+  border-top-right-radius: 5px 5px;
+  padding: 2px 5px;
+  color: red;
+}
+
+div.field_with_errors div.ui-effects-wrapper {
+  display: inline-block !important;
+}

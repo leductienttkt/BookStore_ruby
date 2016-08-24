@@ -7,7 +7,7 @@ FactoryGirl.define do
     author { Faker::Book.author }
     publish_id { Faker::Number.number(2) }
     cost { Faker::Number.decimal(2) }
-    sale { Faker::Number.between(0, 0.5) }
+    sale { Faker::Number.between(0, 5) }
     photo { Faker::Avatar.image() }
     content { Faker::Hipster.paragraph }
     weight {  Faker::Number.decimal(2) }

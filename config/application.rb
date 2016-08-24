@@ -1,11 +1,12 @@
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
+require 'carrierwave'
+require 'carrierwave/orm/activerecord'
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 require "will_paginate"
-require 'carrierwave/orm/activerecord'
 
 module BookStore
   class Application < Rails::Application
@@ -25,6 +26,8 @@ module BookStore
     config.active_record.raise_in_transactional_callbacks = true
 
     #Ruby can find the custom_failure.rb
-    config.autoload_paths += %W(#{config.root}/lib)
+    # config.autoload_paths += %W(#{config.root}/lib)
+    # config.autoload_paths += "#{Rails.root}/app/uploaders"
+    config.autoload_paths += %W(#{config.root}/lib #{config.root}/app/uploaders)
   end
 end

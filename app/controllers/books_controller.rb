@@ -1,5 +1,7 @@
 class BooksController < ApplicationController
   before_action :set_book, only: [:show, :edit, :update, :destroy]
+  before_action :categories, only: [:new, :edit, :create, :update]
+  before_action :publishs, only: [:new, :edit, :create, :update]
   # GET /books
   # GET /books.json
   def index

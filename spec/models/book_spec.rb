@@ -19,7 +19,8 @@ RSpec.describe Book, type: :model do
     it { expect(@book).to validate_numericality_of(:cost).is_greater_than_or_equal_to(1) }
 
     it { expect(@book.sale).to be_truthy }
-    it { expect(@book).to validate_numericality_of(:sale).is_greater_than_or_equal_to(1) }
+    it { expect(@book).to validate_numericality_of(:sale).is_greater_than_or_equal_to(0) }
+    it { expect(@book).to validate_numericality_of(:sale).is_less_than_or_equal_to(0.75) }
 
     it { expect(@book.weight).to be_truthy }
     it { expect(@book).to validate_numericality_of(:weight).is_greater_than_or_equal_to(10) }
